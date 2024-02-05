@@ -52,13 +52,13 @@ func selectSort(array: [Int]) -> [Int] {
 func insertSort(array: [Int]) -> [Int] {
     var sortedArray = array
     
-    for index in 1 ..< sortedArray.count {
-        var currentIndex = index
-        
-        while currentIndex > 0 &&
-                sortedArray[currentIndex] < sortedArray[currentIndex - 1] {
-            sortedArray.swapAt(currentIndex, currentIndex - 1)
-            currentIndex -= 1
+    for indexI in 0 ..< sortedArray.count {
+        for indexJ in stride(from: indexI, to: 0, by: -1) {
+            if sortedArray[indexJ] < sortedArray[indexJ - 1] {
+                sortedArray.swapAt(indexJ, indexJ - 1)
+            } else {
+                break
+            }
         }
     }
     
