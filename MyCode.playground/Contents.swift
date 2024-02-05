@@ -65,6 +65,60 @@ func insertSort(array: [Int]) -> [Int] {
     return sortedArray
 }
 
+/*
+ 퀵 정렬
+ 값을 하나 선택하여 왼쪽과 오른쪽을 비교하여 정렬
+ */
+func quickSort(array: [Int]) -> [Int] {
+    guard let first = array.first, array.count > 1 else { return array }
+    
+    let pivot = first
+    let left = array.filter { $0 < pivot }
+    let right = array.filter { $0 > pivot }
+    
+    return quickSort(array: left) + [pivot] + quickSort(array: right)
+}
+
+/*
+ 합병 정렬
+ Array를 두개로 나누어 정렬하여 다시 합치는 것
+ */
+func mergeSort(array: [Int]) -> [Int] {
+    if array.count <= 1 {
+        return array
+    }
+    
+    let center = array.count / 2
+    let left = Array(array[0 ..< center])
+    let right = Array(array[center ..< array.count])
+    
+    func merge(left: [Int], right: [Int]) -> [Int] {
+        var left = left
+        var right = right
+        var result: [Int] = []
+        
+        while !left.isEmpty && !right.isEmpty {
+            if left[0] < right[0] {
+                result.append(left.removeFirst())
+            } else {
+                result.append(right.removeFirst())
+            }
+        }
+        
+        if !left.isEmpty {
+            result.append(contentsOf: left)
+        }
+        
+        if !right.isEmpty {
+            result.append(contentsOf: right)
+        }
+        
+        return result
+    }
+    
+    return merge(left: mergeSort(array: left), right: mergeSort(array: right))
+}
+
 
 // 버블 정렬
 print("버블 정렬 : ", bubbleSort(array: unsortedArray))
@@ -72,3 +126,12 @@ print("버블 정렬 : ", bubbleSort(array: unsortedArray))
 print("선택 정렬 : ", selectSort(array: unsortedArray))
 // 삽입 정렬
 print("삽입 정렬 : ", insertSort(array: unsortedArray))
+// 퀵 정렬
+print("퀵 정렬 : ", quickSort(array: unsortedArray))
+// 합병 정렬
+print("합병 정렬 : ", mergeSort(array: unsortedArray))
+
+
+var dddd: [Int] = [1,3,4,5,6,7,8,9]
+var result: [Int] = []
+print(result.append(dddd.removeFirst()))
